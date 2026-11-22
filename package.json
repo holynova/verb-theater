@@ -1,9 +1,10 @@
 {
   "name": "verb-theater",
-  "version": "1.0.1",
+  "version": "2.1.0",
   "private": true,
   "scripts": {
-    "check": "node --check game.js && node --check sound.js && node --check scenes.js",
-    "build": "npm run check && node build.mjs"
+    "check": "node --check game.js && node --check sound.js && node --check scenes.js && node --check projection/score.js && node --check projection/language.js && node --check projection/guide.js && node --check projection/objects.js && node --check projection/audio.js && node --check projection/local.js && node --check projection/player.js",
+    "build": "npm run check && node build.mjs",
+    "study": "node build.mjs"
   }
 }

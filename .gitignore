@@ -2,3 +2,5 @@ dist/
 node_modules/
 .wrangler/
 .DS_Store
+
+个人研究版/

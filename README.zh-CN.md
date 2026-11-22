@@ -1,19 +1,23 @@
-# 动词放映室
+# 动词放映室 · DO IT!
 
-[English](README.md) · [在线跟练](https://verb-theater.pages.dev/) · [独立域名 · 等待 DNS 生效](https://verb-theater.xiaosang.cc/) · [游戏源码](https://github.com/holynova/verb-theater)
+[中文试玩](https://holynova.github.io/verb-theater/?lang=zh) · [Play in English](https://holynova.github.io/verb-theater/?lang=en) · [制作方的展览记录](https://tha.jp/10179) · [English](README.md)
 
-拍一下手，吐司从面包机里跳出来。向下一拉，港口的钟响了。保持同一个动作，下一幕又拉动了一辆缆车。每个动作先示范四拍，再揭晓两段场景。
+跟着黑底白线的手势向下一拉，百叶窗升起。下一镜，同样的手势拉长卷纸，再下一镜，它成了床头灯的拉绳。网页对照日本「デザインあ展 neo」的《DO IT!》重建十组动作，沿用制作方 3 分 30 秒现场影片的段落和切点。公开版使用重新绘制的手势、生成的实景底图、程序动画与合成音轨。
 
-![选场画面中的吐司机、帆船和扭蛋机](assets/screenshot.png)
+点「开始跟练」播放全场，也可以从「动作目录」直接进入任意一段。支持变速、暂停、单段循环和全屏。「作品与对照」可以读取本机上的 THA 对应版本，切换同一时间点的网页重建、透视校正投影和原镜头。现场近景会保留画面中的观众。
 
-选一场演出和播放速度，跟着中文提示完成六个动作、十二幕原创动画。画面用 Canvas 绘制，配乐与拟音在浏览器中合成。可以站着或坐着跟练，免摄像头，完成记录保存在当前设备上。
+![DO IT! · Pull](assets/screenshot.png)
 
-## 本地运行
+## 本地使用
 
-用浏览器打开 `index.html` 即可开始。游戏和声音均可离线运行。
+直接打开 `index.html` 即可玩。运行 `npm run build` 检查脚本并生成静态目录 `dist/`。GitHub Pages 从 `main` 根目录提供网页。
 
-## 发布
+安装 FFmpeg 并准备对应影片后，运行 `npm run study -- "/本机路径/影片.mp4"` 可生成「个人研究版」目录。打开其中的 `index.html` 即可使用原声和从本机影片提取的同步手势。该目录由 Git 忽略。先前的十二幕原创游戏仍可通过 [旧版入口](https://holynova.github.io/verb-theater/reel.html) 游玩。
 
-运行 `npm run build` 检查脚本，并将五个运行文件复制到 `dist/`。在 Cloudflare Pages 连接本仓库，选择生产分支 `main`，构建命令填 `npm run build`，产物目录填 `dist`。推送到已绑定的生产分支即可触发发布。
+## 原作署名
 
-[![扫码打开动词放映室](assets/qr.png)](https://verb-theater.xiaosang.cc/)
+《DO IT!》导演中村勇吾，音乐蓮沼執太，声音 DJ KOO。[THA 作品页](https://tha.jp/10179)
+
+点开始即进入全屏，点画面暂停并调出控制。结束只显示「完成」和「重播」。本地研究版提供 zh.html 和 en.html 两个独立入口。
+
+[Cloudflare Pages](https://verb-theater.pages.dev/) · [GitHub](https://github.com/holynova/verb-theater)

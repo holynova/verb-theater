@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#f6f1e5" />
+    <meta
+      name="description"
+      content="跟着节拍拍手、拉动、扇风，走进十二幕原创动作小剧场。"
+    />
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="e01c9f78-4607-4e60-b01c-77c8190b12b4"></script>
+    <title>动词放映室 · Verb Theater</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="scenes.js"></script>
+    <script defer src="sound.js"></script>
+    <script defer src="game.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <span class="logo" aria-hidden="true">▶</span
+        ><strong>动词放映室</strong><small>VERB THEATER</small>
+      </div>
+      <div class="tools">
+        <button id="sound" aria-pressed="true">声音 开</button
+        ><button id="full">全屏 ↗</button>
+      </div>
+    </header>
+    <main>
+      <section id="home">
+        <div class="feature">
+          <div class="intro">
+            <div class="eyebrow">
+              <i></i> 互动运动游戏 <span>/</span> MOTION GAME
+            </div>
+            <h1>跟着节拍，<br />动起来<span>！</span></h1>
+            <p>
+              跟着示范拍手、拉动、扇风。每换一个场景，同一个动作就有一个新结果。
+            </p>
+            <button class="primary" id="start">▶　开始第一场</button
+            ><a class="textlink" href="#program">选择场次 ↓</a>
+            <div class="details">免摄像头　 /　 可坐姿跟练</div>
+          </div>
+          <figure class="poster">
+            <div class="filmline">
+              <b>动作预告</b><span>VERB THEATER　/　预览</span>
+            </div>
+            <canvas
+              id="cover"
+              width="680"
+              height="420"
+              aria-label="节拍动作场景预览"
+            ></canvas>
+            <figcaption>
+              <div><small id="previewNo"></small><b id="previewName"></b></div>
+              <button id="change">换一幕　↻</button>
+            </figcaption>
+          </figure>
+        </div>
+        <section id="program">
+          <div class="heading">
+            <div>
+              <small>PROGRAM GUIDE</small>
+              <h2>选择场次</h2>
+            </div>
+            <span>3 场演出　/　12 个场景</span>
+          </div>
+          <div id="cards"></div>
+        </section>
+      </section>
+      <section id="play" hidden>
+        <div class="playhead">
+          <div>
+            <small id="stageNo"></small>
+            <h2 id="stageName"></h2>
+          </div>
+          <button id="pause">Ⅱ　暂停</button>
+        </div>
+        <div class="screen">
+          <div class="filmline">
+            <b id="sceneTitle"></b><span id="remaining"></span>
+          </div>
+          <div class="picture">
+            <canvas
+              id="screenArt"
+              width="740"
+              height="440"
+              aria-label="跟练动作与场景动画"
+            ></canvas>
+          </div>
+          <div class="track"><span id="progress"></span></div>
+        </div>
+        <div class="cue">
+          <div>
+            <small id="phase"></small>
+            <h2 id="move"></h2>
+            <p id="hint"></p>
+          </div>
+          <div class="beats" aria-hidden="true">
+            <i></i><i></i><i></i><i></i>
+          </div>
+        </div>
+        <p class="next" id="next"></p>
+      </section>
+      <section id="finish" hidden>
+        <small>END OF REEL</small>
+        <div class="seal" aria-hidden="true">✦</div>
+        <h1>放映完成！</h1>
+        <p id="summary"></p>
+        <div class="endbuttons">
+          <button class="primary" id="advance"></button
+          ><button id="again">重播本场</button
+          ><button id="back">场次目录</button>
+        </div>
+      </section>
+    </main>
+    <dialog id="options" aria-labelledby="configTitle">
+      <div class="dialogtop">
+        <small id="configNo"></small
+        ><button id="closeConfig" aria-label="关闭">×</button>
+      </div>
+      <h2 id="configTitle"></h2>
+      <p id="configMoves"></p>
+      <fieldset>
+        <legend>播放节奏</legend>
+        <div id="speeds"></div>
+      </fieldset>
+      <p id="duration"></p>
+      <p>
+        留出舒适的活动空间。看四拍示范，再跟着物件一起动；坐着时可以用交替点脚代替踏步。
+      </p>
+      <button id="launch" class="primary">▶　开始跟练</button>
+    </dialog>
+    <dialog id="hold" aria-labelledby="holdTitle">
+      <small>INTERMISSION</small>
+      <h2 id="holdTitle">中场暂停</h2>
+      <p>继续后，从停下的这一拍接着放映。</p>
+      <button class="primary" id="resume">▶　继续跟练</button
+      ><button id="leave">返回场次目录</button>
+    </dialog>
+    <footer>
+      <b>VERB THEATER · v1.0.1</b><a href="https://github.com/holynova/verb-theater">GitHub ↗</a>
+    </footer>
+  </body>
+</html>

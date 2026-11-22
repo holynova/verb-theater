@@ -6,143 +6,134 @@
       name="viewport"
       content="width=device-width,initial-scale=1,viewport-fit=cover"
     />
-    <meta name="theme-color" content="#f6f1e5" />
+    <meta name="theme-color" content="#10100f" />
     <meta
       name="description"
-      content="跟着节拍拍手、拉动、扇风，走进十二幕原创动作小剧场。"
+      content="对照日本《DO IT!》展览影像重建的十组动作跟练。"
     />
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="e01c9f78-4607-4e60-b01c-77c8190b12b4"></script>
-    <title>动词放映室 · Verb Theater</title>
-    <link rel="stylesheet" href="style.css" />
-    <script defer src="scenes.js"></script>
-    <script defer src="sound.js"></script>
-    <script defer src="game.js"></script>
+    <script>
+      if (location.protocol === "https:") {
+        const a = document.createElement("script");
+        a.defer = true;
+        a.src = "https://cloud.umami.is/script.js";
+        a.dataset.websiteId = "e01c9f78-4607-4e60-b01c-77c8190b12b4";
+        document.head.append(a);
+      }
+    </script>
+    <title>DO IT! · 动词放映室</title>
+    <link rel="stylesheet" href="projection/stage.css" />
+    <script defer src="projection/score.js"></script>
+    <script defer src="projection/language.js"></script>
+    <script defer src="projection/guide.js"></script>
+    <script defer src="projection/objects.js"></script>
+    <script defer src="projection/audio.js"></script>
+    <script defer src="projection/local.js"></script>
+    <script defer src="projection/player.js"></script>
   </head>
   <body>
-    <header>
-      <div class="brand">
-        <span class="logo" aria-hidden="true">▶</span
-        ><strong>动词放映室</strong><small>VERB THEATER</small>
-      </div>
-      <div class="tools">
-        <button id="sound" aria-pressed="true">声音 开</button
-        ><button id="full">全屏 ↗</button>
-      </div>
-    </header>
-    <main>
-      <section id="home">
-        <div class="feature">
-          <div class="intro">
-            <div class="eyebrow">
-              <i></i> 互动运动游戏 <span>/</span> MOTION GAME
-            </div>
-            <h1>跟着节拍，<br />动起来<span>！</span></h1>
-            <p>
-              跟着示范拍手、拉动、扇风。每换一个场景，同一个动作就有一个新结果。
-            </p>
-            <button class="primary" id="start">▶　开始第一场</button
-            ><a class="textlink" href="#program">选择场次 ↓</a>
-            <div class="details">免摄像头　 /　 可坐姿跟练</div>
+    <div id="app">
+      <header>
+        <div class="brand"><b>DO IT!</b><span>动词放映室</span></div>
+        <div class="headerTools">
+          <div class="languages" aria-label="Language">
+            <button id="zh" lang="zh-CN">中文</button
+            ><button id="en" lang="en">English</button>
           </div>
-          <figure class="poster">
-            <div class="filmline">
-              <b>动作预告</b><span>VERB THEATER　/　预览</span>
-            </div>
-            <canvas
-              id="cover"
-              width="680"
-              height="420"
-              aria-label="节拍动作场景预览"
-            ></canvas>
-            <figcaption>
-              <div><small id="previewNo"></small><b id="previewName"></b></div>
-              <button id="change">换一幕　↻</button>
-            </figcaption>
-          </figure>
+          <button id="about" class="link">作品与对照</button>
         </div>
-        <section id="program">
-          <div class="heading">
-            <div>
-              <small>PROGRAM GUIDE</small>
-              <h2>选择场次</h2>
-            </div>
-            <span>3 场演出　/　12 个场景</span>
+      </header>
+      <main>
+        <section id="theater" aria-label="跟练投影">
+          <button id="surface" aria-label="暂停" hidden></button
+          ><canvas id="art" aria-label="白线动作示范与实景投影"></canvas>
+          <div id="footage" hidden>
+            <video id="film" playsinline preload="metadata"></video>
           </div>
-          <div id="cards"></div>
+          <div id="filmCue" hidden></div>
+          <div id="result" hidden>
+            <strong id="resultText"></strong><button id="replay"></button>
+          </div>
+          <div id="curtain">
+            <div class="pitch">
+              <div lang="ja">デザインあ展 neo</div>
+              <h1>DO IT!</h1>
+              <p>点画面暂停</p>
+            </div>
+            <button id="start" disabled>
+              开始 <span aria-hidden="true">▶</span>
+            </button>
+          </div>
         </section>
-      </section>
-      <section id="play" hidden>
-        <div class="playhead">
-          <div>
-            <small id="stageNo"></small>
-            <h2 id="stageName"></h2>
-          </div>
-          <button id="pause">Ⅱ　暂停</button>
+        <div class="readout">
+          <strong id="current">全场跟练</strong
+          ><span id="counter">0:00 / 3:30</span>
         </div>
-        <div class="screen">
-          <div class="filmline">
-            <b id="sceneTitle"></b><span id="remaining"></span>
-          </div>
-          <div class="picture">
-            <canvas
-              id="screenArt"
-              width="740"
-              height="440"
-              aria-label="跟练动作与场景动画"
-            ></canvas>
-          </div>
-          <div class="track"><span id="progress"></span></div>
-        </div>
-        <div class="cue">
-          <div>
-            <small id="phase"></small>
-            <h2 id="move"></h2>
-            <p id="hint"></p>
-          </div>
-          <div class="beats" aria-hidden="true">
-            <i></i><i></i><i></i><i></i>
-          </div>
-        </div>
-        <p class="next" id="next"></p>
-      </section>
-      <section id="finish" hidden>
-        <small>END OF REEL</small>
-        <div class="seal" aria-hidden="true">✦</div>
-        <h1>放映完成！</h1>
-        <p id="summary"></p>
-        <div class="endbuttons">
-          <button class="primary" id="advance"></button
-          ><button id="again">重播本场</button
-          ><button id="back">场次目录</button>
-        </div>
-      </section>
-    </main>
-    <dialog id="options" aria-labelledby="configTitle">
-      <div class="dialogtop">
-        <small id="configNo"></small
-        ><button id="closeConfig" aria-label="关闭">×</button>
+        <label class="seek"
+          ><span class="sr">播放进度</span
+          ><input id="seek" type="range" min="0" max="210" step=".05" value="0"
+        /></label>
+        <nav aria-label="播放控制">
+          <button id="transport" aria-label="播放">▶ <span>播放</span></button>
+          <button id="chapters">动作目录</button>
+          <button id="loop" aria-pressed="false">单段循环</button>
+          <label class="rate"
+            ><span class="sr">播放速度</span
+            ><select id="rate" aria-label="播放速度">
+              <option value=".75">0.75×</option>
+              <option value="1" selected>1×</option>
+              <option value="1.25">1.25×</option>
+              <option value="1.5">1.5×</option>
+            </select></label
+          >
+          <button id="variant" hidden>正面投影 ⇄</button>
+          <div class="spacer"></div>
+          <button id="mute" aria-pressed="false">声音开</button
+          ><button id="expand">全屏 ⛶</button>
+        </nav>
+        <div id="notice" role="status"></div>
+      </main>
+      <footer>
+        <span
+          >デザインあ展 neo ／ DO IT!　<span class="dim"
+            >网页研究版 · v2.1.0</span
+          ></span
+        ><a href="https://github.com/holynova/verb-theater">GitHub ↗</a>
+      </footer>
+    </div>
+    <dialog id="list">
+      <div class="dlgHead">
+        <h2>动作目录</h2>
+        <button data-close aria-label="关闭动作目录">×</button>
       </div>
-      <h2 id="configTitle"></h2>
-      <p id="configMoves"></p>
-      <fieldset>
-        <legend>播放节奏</legend>
-        <div id="speeds"></div>
-      </fieldset>
-      <p id="duration"></p>
+      <div id="moves"></div>
+    </dialog>
+    <dialog id="info">
+      <div class="dlgHead">
+        <h2>作品与对照</h2>
+        <button data-close aria-label="关闭作品信息">×</button>
+      </div>
       <p>
-        留出舒适的活动空间。看四拍示范，再跟着物件一起动；坐着时可以用交替点脚代替踏步。
+        《DO IT!》是日本「デザインあ展
+        neo」的影像装置。导演中村勇吾，音乐蓮沼執太，声音 DJ KOO。
       </p>
-      <button id="launch" class="primary">▶　开始跟练</button>
+      <p>
+        网页按制作方公开影片的时间编排十组动作，独立绘制手势、制作实景动画和节拍。载入对应的
+        3 分 30 秒影片后，可随时切换网页重建、正面投影和原镜头。
+      </p>
+      <p>
+        <a href="https://tha.jp/10179" target="_blank" rel="noopener"
+          >THA 作品与影片 ↗</a
+        >　<a
+          href="https://www.youtube.com/watch?v=TP6L3JbJLZQ"
+          target="_blank"
+          rel="noopener"
+          >展厅全程记录 ↗</a
+        >
+      </p>
+      <label for="file" class="file">载入本地对照片</label
+      ><input id="file" type="file" accept="video/*" />
+      <p id="localStatus">文件在本机读取。</p>
+      <div id="views" hidden></div>
     </dialog>
-    <dialog id="hold" aria-labelledby="holdTitle">
-      <small>INTERMISSION</small>
-      <h2 id="holdTitle">中场暂停</h2>
-      <p>继续后，从停下的这一拍接着放映。</p>
-      <button class="primary" id="resume">▶　继续跟练</button
-      ><button id="leave">返回场次目录</button>
-    </dialog>
-    <footer>
-      <b>VERB THEATER · v1.0.1</b><a href="https://github.com/holynova/verb-theater">GitHub ↗</a>
-    </footer>
   </body>
 </html>

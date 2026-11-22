@@ -1,0 +1,161 @@
+const englishMoves = [
+  "Chop down",
+  "Pull down",
+  "Flick sideways",
+  "Turn and return",
+  "Squeeze",
+  "Point",
+  "Tap alternately",
+  "Shake",
+  "Rub palms",
+  "Wave",
+];
+const englishScenes = [
+  ["Slice the cucumber", "Season the egg", "Drive the nail"],
+  ["Raise the blinds", "Unroll the paper", "Switch the bedside light"],
+  ["Return the ball", "Flick off the drops", "Move the files"],
+  ["Adjust the flame", "Turn on the shower", "Zoom the camera"],
+  ["Squeeze out water", "Turn the pages", "Squeeze toothpaste"],
+  ["Press the stop button", "Turn the class around", "Throw a dart"],
+  ["Pat the shoulders", "Play the drums", "Cheer at karaoke"],
+  ["Dust the cake", "Fan the embers", "Make the baby smile"],
+  ["Spin the spindle", "Warm your hands", "Make a plea"],
+  ["Wipe the board", "Wave goodbye", "Wave goodbye · wide shot"],
+];
+const copy = {
+  zh: {
+    brand: "动词放映室",
+    about: "作品与对照",
+    start: "开始",
+    hint: "点画面暂停",
+    home: "全场跟练",
+    play: "播放",
+    pause: "暂停",
+    again: "重播",
+    done: "完成",
+    list: "动作目录",
+    loop: "单段循环",
+    looping: "循环中",
+    sound: "声音开",
+    silent: "声音关",
+    full: "全屏",
+    guide: "动作示范",
+    opening: "开场",
+    break: "幕间",
+    end: "终场",
+    rate: "播放速度",
+    seek: "播放进度",
+    controls: "播放控制",
+    stage: "跟练投影",
+    canvas: "动作示范与场景",
+    close: "关闭",
+    file: "载入本地对照片",
+    private: "文件在本机读取。",
+    aligned: "影片已对齐。可在暂停时切换视角。",
+    mismatch: "请选择 THA 的 3:30、16:9 影片。",
+    unreadable: "浏览器无法读取这份影片。",
+    loadError: "实景素材加载失败，请刷新。",
+    playError: "请再点一次播放。",
+    modes: ["网页重建", "正面投影", "原镜头"],
+    credits:
+      "《DO IT!》是日本「デザインあ展 neo」的作品。导演中村勇吾，音乐蓮沼執太，声音 DJ KOO。",
+    study:
+      "网页按制作方影片的时间编排十组动作。载入对应影片，可对照网页动画、正面投影与展厅原镜头。",
+    official: "制作方影片 ↗",
+    floor: "展厅全程 ↗",
+    version: "网页研究版",
+    back: "转回",
+    messages: [
+      "动起来！",
+      "动起来！",
+      "跟着画面做",
+      "准备好了吗？",
+      "很好！",
+      "做得不错！",
+      "再来一组",
+      "太棒了！",
+      "做得漂亮！",
+      "准备升级",
+      "完成得很好！",
+      "辛苦了！",
+      "最后一个动作",
+      "完成",
+    ],
+  },
+  en: {
+    brand: "Verb Theater",
+    about: "About & sources",
+    start: "Start",
+    hint: "Tap the screen to pause",
+    home: "Full session",
+    play: "Play",
+    pause: "Pause",
+    again: "Replay",
+    done: "Complete",
+    list: "Movements",
+    loop: "Loop chapter",
+    looping: "Looping",
+    sound: "Sound on",
+    silent: "Sound off",
+    full: "Full screen",
+    guide: "Gesture cue",
+    opening: "Opening",
+    break: "Interlude",
+    end: "Finale",
+    rate: "Playback speed",
+    seek: "Playback position",
+    controls: "Playback controls",
+    stage: "Practice screen",
+    canvas: "Gesture and scene",
+    close: "Close",
+    file: "Load local reference film",
+    private: "The file stays on this device.",
+    aligned: "Film aligned. Pause to switch views.",
+    mismatch: "Select the 3:30, 16:9 THA film.",
+    unreadable: "The browser could not read this film.",
+    loadError: "Scene images could not load. Refresh to retry.",
+    playError: "Press play again.",
+    modes: ["Reconstruction", "Front projection", "Original camera"],
+    credits:
+      "DO IT! is an installation from Design Ah! Exhibition neo. Direction by Yugo Nakamura, music by Shuta Hasunuma, voice by DJ KOO.",
+    study:
+      "Ten movements follow the timing of the production film. Load the matching local film to compare the animation, frontal projection and original camera at the same moment.",
+    official: "Production film ↗",
+    floor: "Full exhibition recording ↗",
+    version: "Web study",
+    back: "AND BACK",
+    messages: [
+      "DO IT!",
+      "DO IT!",
+      "Move with the picture",
+      "Are you ready?",
+      "Great!",
+      "Looking good!",
+      "One more round",
+      "Excellent!",
+      "Beautiful!",
+      "Level up",
+      "Well done!",
+      "Nice work!",
+      "One last move",
+      "Complete",
+    ],
+  },
+};
+function initialLanguage() {
+  const q = new URLSearchParams(location.search).get("lang");
+  if (q === "zh" || q === "en") return q;
+  if (window.entryLanguage) return window.entryLanguage;
+  try {
+    if (localStorage.getItem("verb-language") === "en") return "en";
+  } catch {}
+  return "zh";
+}
+let language = initialLanguage();
+const ui = () => copy[language];
+const moveName = (i) => (language === "en" ? englishMoves[i] : movements[i].zh);
+const objectName = (i, j) =>
+  language === "en" ? englishScenes[i][j] : movements[i].scenes[j];
+const promptText = (s) =>
+  s.en === "AND BACK" ? ui().back : language === "en" ? s.en : moveName(s.id);
+const messageText = (m) => ui().messages[messages.indexOf(m)];

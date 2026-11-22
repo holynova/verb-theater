@@ -1,19 +1,17 @@
-# Verb Theater
+# Verb Theater · DO IT!
 
-[简体中文](README.zh-CN.md) · [Play now](https://verb-theater.pages.dev/) · [Custom domain · activation pending](https://verb-theater.xiaosang.cc/) · [Source](https://github.com/holynova/verb-theater)
+[Play in English](https://holynova.github.io/verb-theater/?lang=en) · [中文试玩](https://holynova.github.io/verb-theater/?lang=zh) · [简体中文](README.zh-CN.md) · [Original installation](https://tha.jp/10179)
 
-Clap to pop toast, pull to ring a harbor bell, then keep pulling as a cable car rolls into view. This Chinese-language rhythm game teaches one movement in four beats and reveals two animated scenes for each gesture.
+Follow ten gestures in the order of the Japanese Design Ah! Exhibition neo installation. Pull down to raise a blind, unroll paper and switch a bedside light. The independent browser reconstruction follows the 3:30 THA documentation film with hand-drawn gesture cues, generated photographic plates, animated objects and synthesized sound. The chapter menu, speed control and loop switch support repeated practice.
 
-![Game selection screen with a toaster, a sailboat and a capsule machine](assets/screenshot.png)
+![DO IT! · Pull](assets/screenshot.png)
 
-Choose one of three reels and a tempo. Follow six gestures across twelve hand-drawn Canvas scenes with synthesized music and sound effects. Play standing or seated. Camera-free play records completed reels on this device.
+Open `index.html` directly or run `npm run build` for the static site in `dist/`. GitHub Pages serves the root of `main`. The earlier game is available at [reel.html](https://holynova.github.io/verb-theater/reel.html).
 
-## Run locally
+For frame comparison, load a local copy of the corresponding THA film from the credits dialog. With FFmpeg installed, `npm run study -- "/path/to/film.mp4"` builds an offline personal study edition with synchronized gesture loops in the git-ignored `个人研究版/` directory. The projection view rectifies the angled screen. Close-up shots retain the people visible in the documentation film.
 
-Open `index.html` in a browser. The game and its audio can run offline.
+Original installation credits: direction by Yugo Nakamura, music by Shuta Hasunuma, voice by DJ KOO. [THA](https://tha.jp/10179)
 
-## Publish
+Playback enters full screen. Tap the picture to pause and reveal the controls. The final screen has a completion message and Replay. The offline build includes explicit English and Chinese entries in en.html and zh.html.
 
-Run `npm run build` to check the JavaScript and copy the five runtime files into `dist/`. For Cloudflare Pages, connect this repository, select `main`, use `npm run build` as the build command and `dist` as the output directory. A push to the connected production branch triggers publication.
-
-[![QR code for the game](assets/qr.png)](https://verb-theater.xiaosang.cc/)
+[Cloudflare Pages](https://verb-theater.pages.dev/) · [GitHub](https://github.com/holynova/verb-theater)
