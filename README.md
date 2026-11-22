@@ -1,6 +1,6 @@
 # Verb Theater
 
-[简体中文](README.zh-CN.md) · [Play in your browser](https://verb-theater.xiaosang.cc/) · [Source](https://github.com/holynova/verb-theater)
+[简体中文](README.zh-CN.md) · [Planned game URL · activation pending](https://verb-theater.xiaosang.cc/) · [Source](https://github.com/holynova/verb-theater)
 
 Clap to pop toast, pull to ring a harbor bell, then keep pulling as a cable car rolls into view. This Chinese-language rhythm game teaches one movement in four beats and reveals two animated scenes for each gesture.
 

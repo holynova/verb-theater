@@ -1,6 +1,6 @@
 # 动词放映室
 
-[English](README.md) · [在线跟练](https://verb-theater.xiaosang.cc/) · [游戏源码](https://github.com/holynova/verb-theater)
+[English](README.md) · [游戏地址 · 等待域名上线](https://verb-theater.xiaosang.cc/) · [游戏源码](https://github.com/holynova/verb-theater)
 
 拍一下手，吐司从面包机里跳出来。向下一拉，港口的钟响了。保持同一个动作，下一幕又拉动了一辆缆车。每个动作先示范四拍，再揭晓两段场景。
 
