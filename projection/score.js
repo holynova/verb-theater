@@ -121,3 +121,8 @@ function scoreAt(time) {
     en: back ? "AND BACK" : m.en,
   };
 }
+
+// Exhibition seconds per complete gesture at the standard 120 BPM.
+function gesturePeriod(id) {
+  return id === 3 ? 2 : id === 7 || id === 8 ? 0.5 : 1;
+}

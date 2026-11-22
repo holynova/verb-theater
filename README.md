@@ -2,9 +2,9 @@
 
 [Play in English](https://holynova.github.io/verb-theater/?lang=en) · [中文试玩](https://holynova.github.io/verb-theater/?lang=zh) · [简体中文](README.zh-CN.md) · [Original installation](https://tha.jp/10179)
 
-Follow ten gestures in the order of the Japanese Design Ah! Exhibition neo installation. Pull down to raise a blind, unroll paper and switch a bedside light. The independent browser reconstruction follows the 3:30 THA documentation film with hand-drawn gesture cues, generated photographic plates, animated objects and synthesized sound. The chapter menu, speed control and loop switch support repeated practice.
+Follow ten gestures in the order of the Japanese Design Ah! Exhibition neo installation. Pull down to raise a blind, unroll paper and switch a bedside light. The independent browser reconstruction follows the 3:30 THA documentation film with hand-drawn gesture cues, stop-motion photographic sequences and synthesized sound. The chapter menu, speed control and loop switch support repeated practice.
 
-The ten gestures use 48 illustrated key poses. Each downward tug feeds more paper while the returning hand opens. [View the animated GIF](projection/frames/paper-feed.gif).
+The ten gestures use 48 illustrated key poses. The 28 photographic scenes use 168 independently generated exposures. Kick, clap, bass and action accents follow a 120 BPM audio clock that also drives the picture. Each downward tug feeds more paper while the returning hand opens. [View the animated GIF](projection/frames/paper-feed.gif).
 
 ![DO IT! · Pull](assets/screenshot.png)
 

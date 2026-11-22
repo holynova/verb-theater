@@ -22,13 +22,16 @@ const flick = [0, 0, 1, 2, 3, 3, 1, 0];
 
 function guideExposure(id, time) {
   if (id < 0) return { sheet: returnSheet, column: 0, row: 0 };
-  const period = id === 3 ? 2 : id === 7 || id === 8 ? 0.5 : 1;
+  const period = gesturePeriod(id);
   const step = Math.floor(((time % period) * 8) / period);
   const row = id % 2;
   if (id < 2) {
     return {
-      sheet: step < 4 ? gestureSheets[0] : returnSheet,
-      column: step % 4,
+      sheet: time % 1 < 0.625 ? gestureSheets[0] : returnSheet,
+      column:
+        time % 1 < 0.625
+          ? [0, 0, 1, 2, 3][step]
+          : Math.min(3, Math.floor(((time % 1) - 0.625) / 0.09375)),
       row,
     };
   }

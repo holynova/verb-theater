@@ -30,7 +30,8 @@ function now() {
   if (!state.playing) return state.time;
   return state.mode
     ? film.currentTime
-    : state.anchor + (performance.now() - state.epoch) * 0.001 * state.rate;
+    : (audio.time() ??
+        state.anchor + (performance.now() - state.epoch) * 0.001 * state.rate);
 }
 function schedule() {
   if (!frame) frame = requestAnimationFrame(paint);
@@ -248,7 +249,7 @@ function paint() {
       project(r, s.id === 9 && s.scene === 2 ? "last" : s.m.shots[s.scene]);
     else {
       const im = objectFrame(s.id, s.scene, s.local);
-      ctx.drawImage(im, 0, 10, W, H - 20, r.x, r.y, r.w, r.h);
+      ctx.drawImage(im, r.x, r.y, r.w, r.h);
     }
     ctx.strokeStyle = "#eeede8";
     ctx.lineWidth = 1;
@@ -281,9 +282,8 @@ function jump(value) {
   state.anchor = state.time;
   state.epoch = performance.now();
   if (state.source && state.mode) film.currentTime = state.time;
-  audio.last = -1;
-  audio.cue = "";
-  audio.silenceVoice();
+  if (state.playing && !state.mode) audio.start(state.time, state.rate);
+  else audio.stop();
   schedule();
 }
 function enterScreen() {
@@ -310,6 +310,7 @@ async function play() {
       await film.play();
     } else await audio.unlock();
     if (token !== playToken) return;
+    if (!state.mode) audio.start(state.time, state.rate);
     state.started = true;
     state.playing = true;
     state.anchor = state.time;
@@ -405,7 +406,7 @@ function localize() {
   document.querySelector(".file").textContent = u.file;
   el("file").setAttribute("aria-label", u.file);
   el("localStatus").textContent = state.source ? u.aligned : u.private;
-  document.querySelector("footer .dim").textContent = u.version + " · v2.2.0";
+  document.querySelector("footer .dim").textContent = u.version + " · v2.3.0";
   el("moves").replaceChildren();
   movements.forEach((m, id) => {
     const b = document.createElement("button");
@@ -502,6 +503,7 @@ el("rate").onchange = (e) => {
   state.time = t;
   state.epoch = performance.now();
   film.playbackRate = state.rate;
+  if (state.playing && !state.mode) audio.start(t, state.rate);
 };
 el("mute").onclick = () => {
   state.muted = !state.muted;
