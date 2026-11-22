@@ -1,0 +1,9 @@
+{
+  "name": "verb-theater",
+  "version": "1.0.1",
+  "private": true,
+  "scripts": {
+    "check": "node --check game.js && node --check sound.js && node --check scenes.js",
+    "build": "npm run check && node build.mjs"
+  }
+}
