@@ -4,6 +4,8 @@
 
 Follow ten gestures in the order of the Japanese Design Ah! Exhibition neo installation. Pull down to raise a blind, unroll paper and switch a bedside light. The independent browser reconstruction follows the 3:30 THA documentation film with hand-drawn gesture cues, generated photographic plates, animated objects and synthesized sound. The chapter menu, speed control and loop switch support repeated practice.
 
+The ten gestures use 48 illustrated key poses. Each downward tug feeds more paper while the returning hand opens. [View the animated GIF](projection/frames/paper-feed.gif).
+
 ![DO IT! · Pull](assets/screenshot.png)
 
 Open `index.html` directly or run `npm run build` for the static site in `dist/`. GitHub Pages serves the root of `main`. The earlier game is available at [reel.html](https://holynova.github.io/verb-theater/reel.html).

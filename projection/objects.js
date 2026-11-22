@@ -3,7 +3,7 @@ const W = 512,
   H = 341;
 const plates = [];
 const photoOrder = [
-  0, 1, 2, 3, 4, 5, 6, 7, -1, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  0, 1, 2, 3, -1, 5, 6, 7, -1, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   21, 22, 23, 24, 25, -1, 26, 26,
 ];
 const plateLoad = Promise.all(
@@ -36,7 +36,20 @@ const plateLoad = Promise.all(
 );
 const pose = new Image();
 pose.src = "projection/poses.webp";
-const atlasesReady = Promise.all([plateLoad, pose.decode()]);
+const feedSheet = loadFrameSheet("paper-feed");
+const atlasesReady = Promise.all([
+  plateLoad,
+  pose.decode(),
+  guideFramesReady,
+  feedSheet.decode(),
+]);
+
+// One second per pull. The hand returns open while the object holds its new position.
+function paidOut(t) {
+  const second = Math.floor(t);
+  const fraction = Math.min(1, Math.max(0, (t - second - 0.12) / 0.35));
+  return Math.min(4, second + fraction * fraction * (3 - 2 * fraction));
+}
 function poseImage(c, k) {
   c.drawImage(
     pose,
@@ -187,7 +200,6 @@ function objectFrame(id, scene, t) {
   c.lineCap = "round";
   c.lineJoin = "round";
   const motions = {
-    4: [[256, 204, 0, 18 * beat, 105, 130]],
     6: [
       [250, 147, 27 * swing, -8 * beat, 92, 106],
       [245, 195, 37 * swing, -18 * beat, 76, 54],
@@ -339,7 +351,7 @@ function objectFrame(id, scene, t) {
     }
     case 3: {
       const pitch = 22,
-        yEnd = 302 - (Math.floor(t) + beat) * 60;
+        yEnd = 302 - paidOut(t) * 60;
       c.save();
       c.beginPath();
       c.rect(0, 0, W, Math.max(6, yEnd));
@@ -360,14 +372,25 @@ function objectFrame(id, scene, t) {
       break;
     }
     case 4: {
-      const h = 36 + beat * 73;
-      c.drawImage(img, 178, 232, 158, 61, 178, 227, 158, h + 32);
-      line(c, 179, 227 + h + 32, 334, 227 + h + 32, 1, "#bdb5aa");
+      const frame = Math.round((30 * paidOut(t)) / 4);
+      const width = feedSheet.naturalWidth / 6,
+        height = feedSheet.naturalHeight / 6;
+      c.drawImage(
+        feedSheet,
+        (frame % 6) * width,
+        Math.floor(frame / 6) * height,
+        width,
+        height,
+        0,
+        10,
+        W,
+        H - 20,
+      );
       break;
     }
     case 5:
       c.fillStyle =
-        "rgba(10,18,66," + (Math.floor(t * 2) % 2 ? 0.74 : 0.04) + ")";
+        "rgba(10,18,66," + (Math.floor(t + 0.56) % 2 ? 0.74 : 0.04) + ")";
       c.fillRect(0, 0, W, H);
       break;
     case 6:

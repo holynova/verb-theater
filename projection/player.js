@@ -4,10 +4,11 @@ const art = el("art"),
   film = el("film"),
   audio = new ExhibitAudio();
 
+const requestedStart = Number(new URLSearchParams(location.search).get("t"));
 const state = {
   playing: false,
   started: false,
-  time: 0,
+  time: requestedStart > 0 && requestedStart < runtime ? requestedStart : 0,
   anchor: 0,
   epoch: 0,
   rate: 1,
@@ -53,17 +54,9 @@ function type(c, text, x, y, font) {
   c.fillText(text, x, y);
 }
 function actor(x, y, w, h, s, time, labels = true) {
-  ctx.save();
-  ctx.beginPath();
-  ctx.rect(x, y, w, h);
-  ctx.clip();
-  const center = x + w / 2,
-    full = s.id < 0 || s.scene < 0,
-    scale = Math.min(h / 236, w / (full ? 217 : 150));
-  ctx.translate(center - 120 * scale, y + h - 240 * scale);
-  ctx.scale(scale, scale);
-  drawGuide(ctx, s.id, time);
-  ctx.restore();
+  const reserve = labels || s.id < 0 ? h * 0.26 : 0;
+  drawGuide(ctx, s.id, time, x, y + reserve, w, h - reserve);
+
   if (labels) {
     drawPrompt(x, y, w, h, s);
   }
@@ -308,6 +301,8 @@ async function play() {
   if (state.time >= runtime - 0.05)
     jump(state.loop >= 0 ? movements[state.loop].at : 0);
   try {
+    await atlasesReady;
+    if (token !== playToken) return;
     if (state.mode) {
       film.currentTime = state.time;
       film.playbackRate = state.rate;
@@ -410,7 +405,7 @@ function localize() {
   document.querySelector(".file").textContent = u.file;
   el("file").setAttribute("aria-label", u.file);
   el("localStatus").textContent = state.source ? u.aligned : u.private;
-  document.querySelector("footer .dim").textContent = u.version + " · v2.1.0";
+  document.querySelector("footer .dim").textContent = u.version + " · v2.2.0";
   el("moves").replaceChildren();
   movements.forEach((m, id) => {
     const b = document.createElement("button");
